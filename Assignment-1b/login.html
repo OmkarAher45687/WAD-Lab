@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+    <!--Login Form-->
+    <div class="container">
+        <div class="card">
+            <h2>Login Form</h2>
+
+            <form action="#">
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email address">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-success" onclick="saveData()" id="save_btn">LogIn</button>
+                    <button type="reset" class="btn btn-warning"  id="">Reset</button>
+                </div>
+                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="registration.html" class="link-danger">Register</a></p>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function saveData() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+    
+            let user_records = JSON.parse(localStorage.getItem("users")) || [];
+            
+            let loggedInUser = user_records.find(user => user.email === email && user.password === password);
+    
+            if (loggedInUser) {
+                alert("Login Successful");
+
+                let current_user = user_records.filter((v)=>{
+                    return v.email==email && v.password==password;
+                })[0]
+
+                localStorage.setItem("name",current_user.name);
+                localStorage.setItem("email",current_user.email);
+                window.location.href="profile.html";
+            } else {
+                alert("Login Failed !!!");
+            }
+        }
+    </script>
+</body>
+</html>
